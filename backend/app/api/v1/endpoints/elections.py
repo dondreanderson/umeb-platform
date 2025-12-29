@@ -8,7 +8,7 @@ from app.api import deps
 
 router = APIRouter()
 
-@router.get("/", response_model=List[schemas.election.Election])
+@router.get("/", response_model=List[schemas.Election])
 def read_elections(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
@@ -20,11 +20,11 @@ def read_elections(
     elections = db.query(models.election.Election).offset(skip).limit(limit).all()
     return elections
 
-@router.post("/", response_model=schemas.election.Election)
+@router.post("/", response_model=schemas.Election)
 def create_election(
     *,
     db: Session = Depends(deps.get_db),
-    election_in: schemas.election.ElectionCreate,
+    election_in: schemas.ElectionCreate,
     current_user: models.user.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
@@ -36,12 +36,12 @@ def create_election(
     db.refresh(election)
     return election
 
-@router.post("/{id}/candidates", response_model=schemas.election.Candidate)
+@router.post("/{id}/candidates", response_model=schemas.Candidate)
 def add_candidate(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    candidate_in: schemas.election.CandidateCreate,
+    candidate_in: schemas.CandidateCreate,
     current_user: models.user.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
@@ -57,12 +57,12 @@ def add_candidate(
     db.refresh(candidate)
     return candidate
 
-@router.post("/{id}/vote", response_model=schemas.election.Vote)
+@router.post("/{id}/vote", response_model=schemas.Vote)
 def cast_vote(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    vote_in: schemas.election.VoteBase,
+    vote_in: schemas.VoteBase,
     current_user: models.user.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -100,7 +100,7 @@ def cast_vote(
     db.refresh(vote)
     return vote
 
-@router.get("/{id}/results", response_model=schemas.election.ElectionResults)
+@router.get("/{id}/results", response_model=schemas.ElectionResults)
 def read_election_results(
     *,
     db: Session = Depends(deps.get_db),

@@ -7,7 +7,4 @@ Traceback (most recent call last):
     from app.api.v1.endpoints import (
     ...<2 lines>...
     )
-  File "C:\Users\dondr\UMEB-Platform\backend\app\api\v1\endpoints\elections.py", line 11, in <module>
-    @router.get("/", response_model=List[schemas.election.Election])
-                                         ^^^^^^^^^^^^^^^^
-AttributeError: module 'app.schemas' has no attribute 'election'
+ImportError: cannot import name 'projects' from 'app.api.v1.endpoints' (C:\Users\dondr\UMEB-Platform\backend\app\api\v1\endpoints\__init__.py)
