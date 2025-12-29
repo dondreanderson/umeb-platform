@@ -7,4 +7,7 @@ try:
 except Exception as e:
     print(f'Backend import failed: {e}')
     import traceback
-    traceback.print_exc()
+    import traceback
+    with open("verification_log.txt", "w") as f:
+        traceback.print_exc(file=f)
+    print("Error written to verification_log.txt")

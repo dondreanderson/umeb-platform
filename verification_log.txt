@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\dondr\UMEB-Platform\backend\verify_backend.py", line 5, in <module>
+    from main import app
+  File "C:\Users\dondr\UMEB-Platform\backend\main.py", line 4, in <module>
+    from app.api.v1.api import api_router
+  File "C:\Users\dondr\UMEB-Platform\backend\app\api\v1\api.py", line 1, in <module>
+    from app.api.v1.endpoints import (
+    ...<2 lines>...
+    )
+  File "C:\Users\dondr\UMEB-Platform\backend\app\api\v1\endpoints\elections.py", line 11, in <module>
+    @router.get("/", response_model=List[schemas.election.Election])
+                                         ^^^^^^^^^^^^^^^^
+AttributeError: module 'app.schemas' has no attribute 'election'
