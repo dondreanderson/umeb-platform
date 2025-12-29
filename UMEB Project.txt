@@ -1,0 +1,120 @@
+{
+  "platform_name": "UMEB Management Platform",
+  "domain": "Nonprofit Management",
+  "executive_summary": "All-in-one nonprofit management platform to replace fragmented SaaS tools, reduce admin overhead by 30%, and improve donor/member retention.",
+  "core_features": [
+    "Membership management (tiers, renewals, affiliations)",
+    "Event management (registration, ticketing, check-ins)",
+    "Donations & fundraising (recurring, campaigns, tax receipts)",
+    "Payment processing (Stripe, invoicing, refunds)",
+    "Communications (email, SMS, SendGrid integration)",
+    "Reporting & analytics (dashboard, exports)"
+  ],
+  "architecture": {
+    "frontend": "Next.js/React, WCAG 2.2 AA compliant",
+    "backend": "Node.js (API services) with Django alternative",
+    "database": "PostgreSQL",
+    "integrations": ["Stripe", "SendGrid/SES"],
+    "infrastructure": "Docker + Terraform, cloud hosting"
+  },
+  "implementation_roadmap": {
+    "phase1": "MVP in 8–12 weeks: membership, events, donations, payments, core comms, basic reporting",
+    "phase2": "3–4 months: accounting, pledge management, PayPal, multilingual, peer-to-peer fundraising",
+    "phase3": "6–8 months: mobile app, community forums, advanced analytics, advocacy tools"
+  },
+  "success_metrics": [
+    "Reduce admin hours by 30%",
+    "Increase donation conversion by 12–18%",
+    "Increase member retention by 8–12%",
+    "Achieve ROI by month 14–16"
+  ],
+  "risks": [
+    "Scope creep",
+    "Compliance failures (PCI, GDPR, CCPA)",
+    "Staff adoption resistance",
+    "Payment reliability issues"
+  ],
+  "repo_manifest": {
+    "org": "dondreanderson",
+    "name": "umeb-platform",
+    "description": "UMEB Nonprofit Management Platform — membership, events, donations, payments, comms, reporting",
+    "private": false,
+    "topics": ["nonprofit", "management", "saas", "donations", "events", "living-swarm"],
+    "initialize_with_readme": true,
+    "branch_protection": {
+      "main": {
+        "require_pull_request": true,
+        "require_reviews": 1,
+        "require_status_checks": true
+      }
+    }
+  }
+}
+
+Default Login: admin / admin123
+
+Create a comprehensive nonprofit management platform with:
+- Donor management and tracking system
+- Donation processing with payment integration
+- Volunteer coordination and scheduling
+- Event management and registration
+- Grant tracking and reporting
+- Financial dashboard with analytics
+- Email campaign management
+- Member portal with authentication
+- Member election module that allows members to be elected to offices
+- Full voting cast system with dashboard analytics with ability to assign members to offices
+- Admin dashboard
+- PostgreSQL database
+- RESTful API with FastAPI
+- React frontend with modern UI and Next.js/React, WCAG 2.2 AA compliant
+- backend Node.js (API services) with Django alternative
+- database PostgreSQL
+- integrations Stripe or SendGrid/SES
+- infrastructure Docker + Terraform, cloud hosting
+
+UMEB Nonprofit Management Platform
+
+
+Create a comprehensive nonprofit management platform for United Men Empowering Brotherhood (UMEB) organizations.
+
+CORE FEATURES:
+1. Donor Management - profiles, donation history, tax receipts
+2. Payment Processing - Stripe integration for donations
+3. Volunteer Management - registration, scheduling, hour tracking
+4. Event Management - calendar, registration, RSVP, check-in
+5. Member Election & Voting - nominations, secure voting, results dashboard
+6. Grant Management - tracking, deadlines, reporting
+7. Financial Dashboard - analytics, budgets, reports
+8. Communication Suite - email campaigns via SendGrid
+9. Member Portal - OAuth2 auth, personal dashboard
+10. Admin Dashboard - user management, reports, audit logs
+
+TECHNICAL STACK:
+- Frontend: React 18 with Next.js 14, TypeScript, Tailwind CSS, WCAG 2.2 AA
+- Backend: Python FastAPI with Pydantic, JWT auth, RBAC
+- Database: PostgreSQL 15 with migrations
+- Integrations: Stripe, SendGrid, AWS S3
+- Infrastructure: Docker, Terraform, Kubernetes
+- Deployment: AWS ECS, RDS, CloudFront
+
+Generate 50-100 complete production-ready files including frontend components, API endpoints, database schemas, Docker configs, and deployment scripts.
+
+User Stories
+
+As a donor, I want to make secure donations and receive tax receipts
+As an admin, I want to track volunteer hours and generate reports
+As a member, I want to participate in secure voting for board elections
+As a grant manager, I want to track deadlines and submission status
+As an admin I want to be able to onboard new members and allow the members to update their profiles
+
+
+PROJECT="orch_62eca747"
+cd ~/living-swarm-production/completed_projects/$PROJECT
+
+# Quick README check
+head -50 README.md
+
+# Quick package.json check
+cat package.json | jq '.dependencies, .scripts' 2>/dev/null || cat package.json
+
