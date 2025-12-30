@@ -1,0 +1,82 @@
+﻿
+Running 1 test using 1 worker
+
+REQ: GET http://127.0.0.1:3500/login
+REQ: GET http://127.0.0.1:3500/_next/static/media/797e433ab948586e-s.p.dbea232f.woff2
+REQ: GET http://127.0.0.1:3500/_next/static/media/caa3a2e1cccd8315-s.p.853070df.woff2
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Broot-of-the-server%5D__afb1d1dd._.css
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_f51667c6._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_react-dom_f96f481f._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_react-server-dom-turbopack_be3b92d4._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_next-devtools_index_a9a1f1f2.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_5c1852bb._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_client_da231655._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_277c0ac3._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_%40swc_helpers_cjs_d6a2c619._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_a0ff3932._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/turbopack-UMEB-Platform_frontend_5fc080d1._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_68cf6f93._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_favicon_ico_mjs_2641901b._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_b572d371._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_3c850f3d._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_layout_tsx_cdcf9261._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_bf5d138f._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_login_page_tsx_b2cc706d._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_client_components_builtin_global-error_cdcf9261.js
+REQ: GET http://127.0.0.1:3500/_next/image?url=%2FUMEB%20LOGO.jpg&w=1920&q=75
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_c8c997ce._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_bffd00b0._.js
+REQ: POST http://127.0.0.1:3500/api/v1/login/access-token
+REQ: GET http://127.0.0.1:3500/admin?_rsc=5c339
+REQ: GET http://127.0.0.1:3500/__nextjs_font/geist-latin.woff2
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_4e8adaf9._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_layout_tsx_b2cc706d._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_9ce214b1._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_page_tsx_e2f11fbb._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_4e8adaf9._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_layout_tsx_b2cc706d._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_9ce214b1._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_page_tsx_e2f11fbb._.js
+REQ: GET http://127.0.0.1:3500/admin/events/dashboard
+REQ: GET http://127.0.0.1:3500/_next/static/media/797e433ab948586e-s.p.dbea232f.woff2
+REQ: GET http://127.0.0.1:3500/_next/static/media/caa3a2e1cccd8315-s.p.853070df.woff2
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Broot-of-the-server%5D__afb1d1dd._.css
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_f51667c6._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_react-dom_f96f481f._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_react-server-dom-turbopack_be3b92d4._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_next-devtools_index_a9a1f1f2.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_compiled_5c1852bb._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_client_da231655._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_277c0ac3._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_%40swc_helpers_cjs_d6a2c619._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_a0ff3932._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/turbopack-UMEB-Platform_frontend_5fc080d1._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_68cf6f93._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_favicon_ico_mjs_2641901b._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_b572d371._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_3c850f3d._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_layout_tsx_cdcf9261._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_4e8adaf9._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_layout_tsx_b2cc706d._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_b90c415c._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_events_dashboard_page_tsx_e2f11fbb._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/82c92_next_dist_client_components_builtin_global-error_cdcf9261.js
+REQ: GET http://127.0.0.1:3500/_next/image?url=%2FUMEB%20LOGO.jpg&w=1920&q=75
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_c8c997ce._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_bffd00b0._.js
+REQ: GET http://127.0.0.1:3500/api/v1/users/me
+REQ: GET http://127.0.0.1:3500/api/v1/strategy/dashboard/stats
+REQ: GET http://127.0.0.1:3500/admin/events/portfolio?_rsc=16ibo
+REQ: GET http://127.0.0.1:3500/__nextjs_font/geist-latin.woff2
+REQ: POST http://127.0.0.1:3500/__nextjs_original-stack-frames
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_e946f661._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_events_portfolio_page_tsx_e2f11fbb._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_e946f661._.js
+REQ: GET http://127.0.0.1:3500/_next/static/chunks/UMEB-Platform_frontend_src_app_admin_events_portfolio_page_tsx_e2f11fbb._.js
+REQ: GET http://127.0.0.1:3500/api/v1/events/?skip=0&limit=100
+Mock hit (Events): http://127.0.0.1:3500/api/v1/events/?skip=0&limit=100
+REQ: GET http://127.0.0.1:3500/api/v1/events/?skip=0&limit=100
+Mock hit (Events): http://127.0.0.1:3500/api/v1/events/?skip=0&limit=100
+  Γ£ô  1 [chromium] ΓÇ║ e2e\portfolio.spec.ts:106:9 ΓÇ║ Portfolio Management ΓÇ║ Navigate to Portfolio and verify breakdowns (6.6s)
+
+  1 passed (19.5s)
