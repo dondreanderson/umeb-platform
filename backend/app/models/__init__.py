@@ -1,5 +1,5 @@
 from app.db.base_class import Base
-from app.models.user import User
+from app.models.user import User, UserRole, MembershipTier
 from app.models.donor import Donor, Donation
 from app.models.event import Event
 from app.models.email_list import EmailList

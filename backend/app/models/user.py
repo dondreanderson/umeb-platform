@@ -24,6 +24,17 @@ class User(Base):
     role = Column(Enum(UserRole), default=UserRole.MEMBER)
     membership_tier = Column(Enum(MembershipTier), default=MembershipTier.NONE)
 
+    @property
+    def is_superuser(self) -> bool:
+        return self.role == UserRole.ADMIN
+
+    @is_superuser.setter
+    def is_superuser(self, value: bool):
+        if value:
+            self.role = UserRole.ADMIN
+        elif self.role == UserRole.ADMIN:
+            self.role = UserRole.MEMBER
+
     # Profile Fields
     bio = Column(String, nullable=True)
     phone_number = Column(String, nullable=True)
