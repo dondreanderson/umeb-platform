@@ -18,7 +18,7 @@ export interface Election {
     candidates: Candidate[];
 }
 
-export interface CreateElectionDTO {
+export interface ElectionCreate {
     title: string;
     description: string;
     end_date: string;
