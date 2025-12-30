@@ -45,20 +45,21 @@ def create_payment(
     current_user: models.User = Depends(deps.get_current_user),
 ) -> Any:
     """
-    Make a payment (Mock).
+    Create a payment record.
     """
     fee = db.query(models.MembershipFee).filter(models.MembershipFee.id == payment_in.fee_id).first()
     if not fee:
         raise HTTPException(status_code=404, detail="Fee not found")
 
-    # Mock payment processing
+    # Create payment record with PENDING status
+    # Real payment processing should be integrated here (Stripe, PayPal, etc.)
     payment = models.Payment(
         user_id=current_user.id,
         fee_id=fee.id,
         amount=fee.amount,
-        status=PaymentStatus.PAID, # Auto-approve for mock
+        status=PaymentStatus.PENDING,
         payment_date=datetime.datetime.utcnow(),
-        transaction_id=f"MOCK-{datetime.datetime.utcnow().timestamp()}"
+        transaction_id=payment_in.transaction_id if hasattr(payment_in, 'transaction_id') else None
     )
     db.add(payment)
     db.commit()
