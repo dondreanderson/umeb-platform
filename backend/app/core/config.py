@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from typing import List
+from typing import List, Any
+from pydantic import field_validator
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "UMEB Management Platform"
@@ -26,17 +27,16 @@ class Settings(BaseSettings):
     VALIDATE_CERTS: bool = True
         
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = [
-        "http://localhost:3000",
-        "http://localhost:3500",
-        "http://localhost:8000",
-        "http://localhost:8001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3500",
-        "http://127.0.0.1:8000",
-        "http://127.0.0.1:8001",
-        "http://127.0.0.1:8888",
-    ]
+    BACKEND_CORS_ORIGINS: List[str] | str = []
+
+    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
+    @classmethod
+    def assemble_cors_origins(cls, v: Any) -> Any:
+        if isinstance(v, str) and not v.strip().startswith("["):
+            return [i.strip() for i in v.split(",")]
+        elif isinstance(v, (list, str)):
+            return v
+        raise ValueError(v)
 
     model_config = SettingsConfigDict(case_sensitive=True, env_file=".env")
 
