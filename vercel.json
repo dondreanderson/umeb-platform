@@ -1,12 +1,12 @@
 {
+    "version": 2,
     "builds": [
         {
             "src": "frontend/package.json",
-            "use": "@vercel/next"
-        },
-        {
-            "src": "api/index.py",
-            "use": "@vercel/python"
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "frontend/.next"
+            }
         }
     ],
     "routes": [
@@ -23,22 +23,11 @@
             "dest": "/api/index.py"
         },
         {
+            "handle": "filesystem"
+        },
+        {
             "src": "/(.*)",
             "dest": "/frontend/$1"
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/api/index.py"
-        },
-        {
-            "source": "/docs",
-            "destination": "/api/index.py"
-        },
-        {
-            "source": "/openapi.json",
-            "destination": "/api/index.py"
         }
     ]
 }
