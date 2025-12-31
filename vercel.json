@@ -1,12 +1,8 @@
 {
-    "version": 2,
     "builds": [
         {
             "src": "frontend/package.json",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "frontend/.next"
-            }
+            "use": "@vercel/next"
         }
     ],
     "routes": [
@@ -21,9 +17,6 @@
         {
             "src": "/openapi.json",
             "dest": "/api/index.py"
-        },
-        {
-            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
