@@ -32,3 +32,46 @@ def debug_health(
         status["type"] = type(e).__name__
         
     return status
+
+@router.get("/auth-check")
+def debug_auth():
+    """
+    Debug endpoint to check authentication libraries and environment variables.
+    """
+    results = {
+        "env_vars": {
+            "SECRET_KEY_EXISTS": "SECRET_KEY" in os.environ,
+            "SECRET_KEY_LENGTH": len(os.environ.get("SECRET_KEY", "")) if "SECRET_KEY" in os.environ else 0,
+        },
+        "libraries": {}
+    }
+    
+    # Test 1: Import Passlib and Create Context
+    try:
+        from passlib.context import CryptContext
+        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+        results["libraries"]["passlib_import"] = "ok"
+    except Exception as e:
+        results["libraries"]["passlib_import"] = f"error: {str(e)}"
+        
+    # Test 2: Hash Password
+    try:
+        if "passlib_import" in results["libraries"] and results["libraries"]["passlib_import"] == "ok":
+            hash_val = pwd_context.hash("test")
+            results["libraries"]["hashing"] = "ok"
+            # verify
+            valid = pwd_context.verify("test", hash_val)
+            results["libraries"]["verification"] = "ok" if valid else "failed"
+    except Exception as e:
+        results["libraries"]["hashing"] = f"error: {str(e)}"
+        
+    # Test 3: JWT
+    try:
+        from jose import jwt
+        secret = os.getenv("SECRET_KEY", "fallback")
+        token = jwt.encode({"test": "data"}, secret, algorithm="HS256")
+        results["libraries"]["jwt_encode"] = "ok"
+    except Exception as e:
+        results["libraries"]["jwt_encode"] = f"error: {str(e)}"
+        
+    return results
