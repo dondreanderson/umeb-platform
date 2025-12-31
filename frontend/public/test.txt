@@ -1,0 +1,5 @@
+# UMEB Platform - Test Deployment
+
+This file exists to verify the deployment is working.
+
+If you can see this file at `/test.txt`, the deployment is working but routing might be the issue.
