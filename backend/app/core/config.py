@@ -9,6 +9,13 @@ class Settings(BaseSettings):
     # DATABASE
     # Default to docker-compose service name 'db'
     DATABASE_URL: str = "postgresql://user:password@db:5432/umeb"
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def assemble_db_connection(cls, v: str | None) -> str:
+        if v and v.startswith("postgres://"):
+            return v.replace("postgres://", "postgresql://", 1)
+        return v
     
     # SECURITY
     SECRET_KEY: str = "YOUR_SECRET_KEY_HERE_CHANGE_IN_PRODUCTION" # TODO: Change this
