@@ -65,7 +65,21 @@ def debug_auth():
     except Exception as e:
         results["libraries"]["hashing"] = f"error: {str(e)}"
         
-    # Test 3: JWT
+    # Test 3: Native Bcrypt (Bypassing Passlib)
+    try:
+        import bcrypt
+        results["libraries"]["bcrypt_version"] = bcrypt.__version__
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(b"test", salt)
+        results["libraries"]["native_bcrypt_hash"] = "ok"
+        if bcrypt.checkpw(b"test", hashed):
+             results["libraries"]["native_bcrypt_verify"] = "ok"
+        else:
+             results["libraries"]["native_bcrypt_verify"] = "failed"
+    except Exception as e:
+        results["libraries"]["native_bcrypt"] = f"error: {str(e)}"
+
+    # Test 4: JWT
     try:
         from jose import jwt
         secret = os.getenv("SECRET_KEY", "fallback")
