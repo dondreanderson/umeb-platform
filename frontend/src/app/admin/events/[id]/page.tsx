@@ -11,6 +11,9 @@ import { strategyService, EventBudget, EventGoal, EventESG } from "@/services/st
 import { BudgetTab } from "@/components/events/BudgetTab";
 import { GoalsTab } from "@/components/events/GoalsTab";
 import { ESGTab } from "@/components/events/ESGTab";
+import { AgendaTab } from "@/components/events/AgendaTab";
+import { TicketsTab } from "@/components/events/TicketsTab";
+import { SponsorsTab } from "@/components/events/SponsorsTab";
 
 export default function EventDetailsPage() {
     const params = useParams();
@@ -19,7 +22,7 @@ export default function EventDetailsPage() {
 
     const [event, setEvent] = useState<Event | null>(null);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<"budget" | "goals" | "esg">("budget");
+    const [activeTab, setActiveTab] = useState<"budget" | "goals" | "esg" | "agenda" | "tickets" | "sponsors">("budget");
 
     useEffect(() => {
         loadEvent();
@@ -112,42 +115,73 @@ export default function EventDetailsPage() {
                 </CardContent>
             </Card>
 
-            {/* Strategy Tabs */}
+            {/* Strategy & Management Tabs */}
             <div className="space-y-4">
-                <div className="flex gap-2 border-b">
+                <div className="flex gap-2 border-b overflow-x-auto pb-px">
                     <button
                         onClick={() => setActiveTab("budget")}
-                        className={`px-4 py-2 font-medium transition-colors ${activeTab === "budget"
-                                ? "border-b-2 border-primary text-primary"
-                                : "text-muted-foreground hover:text-foreground"
+                        className={`px-4 py-2 font-medium whitespace-nowrap transition-colors ${activeTab === "budget"
+                            ? "border-b-2 border-primary text-primary"
+                            : "text-muted-foreground hover:text-foreground"
                             }`}
                     >
                         Budget
                     </button>
                     <button
                         onClick={() => setActiveTab("goals")}
-                        className={`px-4 py-2 font-medium transition-colors ${activeTab === "goals"
-                                ? "border-b-2 border-primary text-primary"
-                                : "text-muted-foreground hover:text-foreground"
+                        className={`px-4 py-2 font-medium whitespace-nowrap transition-colors ${activeTab === "goals"
+                            ? "border-b-2 border-primary text-primary"
+                            : "text-muted-foreground hover:text-foreground"
                             }`}
                     >
                         Goals & KPIs
                     </button>
                     <button
                         onClick={() => setActiveTab("esg")}
-                        className={`px-4 py-2 font-medium transition-colors ${activeTab === "esg"
-                                ? "border-b-2 border-primary text-primary"
-                                : "text-muted-foreground hover:text-foreground"
+                        className={`px-4 py-2 font-medium whitespace-nowrap transition-colors ${activeTab === "esg"
+                            ? "border-b-2 border-primary text-primary"
+                            : "text-muted-foreground hover:text-foreground"
                             }`}
                     >
                         ESG Tracking
+                    </button>
+                    <button
+                        onClick={() => setActiveTab("agenda")}
+                        className={`px-4 py-2 font-medium whitespace-nowrap transition-colors ${activeTab === "agenda"
+                            ? "border-b-2 border-primary text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                            }`}
+                    >
+                        Agenda
+                    </button>
+                    <button
+                        onClick={() => setActiveTab("tickets")}
+                        className={`px-4 py-2 font-medium whitespace-nowrap transition-colors ${activeTab === "tickets"
+                            ? "border-b-2 border-primary text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                            }`}
+                    >
+                        Tickets & Reg
+                    </button>
+                    <button
+                        onClick={() => setActiveTab("sponsors")}
+                        className={`px-4 py-2 font-medium whitespace-nowrap transition-colors ${activeTab === "sponsors"
+                            ? "border-b-2 border-primary text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                            }`}
+                    >
+                        Partners
                     </button>
                 </div>
 
                 {activeTab === "budget" && <BudgetTab eventId={eventId} />}
                 {activeTab === "goals" && <GoalsTab eventId={eventId} />}
                 {activeTab === "esg" && <ESGTab eventId={eventId} />}
+                {activeTab === "agenda" && <AgendaTab eventId={eventId} />}
+                {activeTab === "tickets" && <TicketsTab eventId={eventId} />}
+                {activeTab === "sponsors" && <SponsorsTab eventId={eventId} />}
             </div>
         </div>
     );
 }
+

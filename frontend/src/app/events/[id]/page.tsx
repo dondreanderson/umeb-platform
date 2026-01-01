@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { TicketSelector } from "@/components/ticketing/TicketSelector";
 import { RegistrationModal } from "@/components/ticketing/RegistrationModal";
 import { TicketType } from "@/services/ticketing";
+import { AgendaView } from "@/components/events/AgendaView";
+import { SponsorsGrid } from "@/components/events/SponsorsGrid";
 
 export default function EventDetailsPage() {
     const params = useParams();
@@ -79,6 +81,16 @@ export default function EventDetailsPage() {
                             </div>
                         </CardContent>
                     </Card>
+
+                    <div className="space-y-6">
+                        <h2 className="text-2xl font-bold tracking-tight">Event Schedule</h2>
+                        <AgendaView eventId={id} />
+                    </div>
+
+                    <div className="space-y-6 pt-8">
+                        <h2 className="text-2xl font-bold tracking-tight">Our Partners</h2>
+                        <SponsorsGrid eventId={id} />
+                    </div>
                 </div>
 
                 <div className="space-y-6">

@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: "Nonprofit management platform for United Men Empowering Brotherhood.",
 };
 
+import { Toaster } from "@/components/ui/toaster";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,6 +34,7 @@ export default function RootLayout({
         <main className="flex-1">
           {children}
         </main>
+        <Toaster />
       </body>
     </html>
   );

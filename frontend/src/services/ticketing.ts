@@ -1,4 +1,4 @@
-import api from './api';
+import { fetchJson } from '@/lib/api';
 
 export interface TicketType {
     id: number;
@@ -39,25 +39,44 @@ export interface EventRegistration {
 
 export const TicketService = {
     getEventTickets: async (eventId: number): Promise<TicketType[]> => {
-        const response = await api.get(`/events/${eventId}/tickets`);
-        return response.data;
+        return fetchJson<TicketType[]>(`/api/v1/events/${eventId}/tickets`);
     },
 
     createTicketType: async (eventId: number, data: TicketTypeCreate): Promise<TicketType> => {
-        const response = await api.post(`/events/${eventId}/tickets`, data);
-        return response.data;
+        return fetchJson<TicketType>(`/api/v1/events/${eventId}/tickets`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
     },
 
     registerForEvent: async (eventId: number, ticketTypeId: number): Promise<EventRegistration> => {
-        const response = await api.post(`/events/${eventId}/register`, {
-            event_id: eventId,
-            ticket_type_id: ticketTypeId
+        return fetchJson<EventRegistration>(`/api/v1/events/${eventId}/register`, {
+            method: 'POST',
+            body: JSON.stringify({
+                event_id: eventId,
+                ticket_type_id: ticketTypeId
+            })
         });
-        return response.data;
     },
 
     getMyRegistrations: async (): Promise<EventRegistration[]> => {
-        const response = await api.get('/registrations/me');
-        return response.data;
+        return fetchJson<EventRegistration[]>('/api/v1/registrations/me');
+    },
+
+    getEventRegistrations: async (eventId: number): Promise<EventRegistration[]> => {
+        return fetchJson<EventRegistration[]>(`/api/v1/events/${eventId}/registrations`);
+    },
+
+    checkInAttendee: async (regId: number): Promise<EventRegistration> => {
+        return fetchJson<EventRegistration>(`/api/v1/registrations/${regId}/check-in`, {
+            method: 'PUT'
+        });
+    },
+
+    updateRegistrationStatus: async (regId: number, status: string): Promise<EventRegistration> => {
+        return fetchJson<EventRegistration>(`/api/v1/registrations/${regId}/status`, {
+            method: 'PUT',
+            body: JSON.stringify({ status })
+        });
     }
 };
