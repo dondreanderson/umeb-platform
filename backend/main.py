@@ -24,21 +24,6 @@ if settings.BACKEND_CORS_ORIGINS:
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
-# DEBUG: Add exception handler to show tracebacks in 500 errors
-from fastapi import Request
-from fastapi.responses import JSONResponse
-import traceback
-
-@app.exception_handler(Exception)
-async def debug_exception_handler(request: Request, exc: Exception):
-    return JSONResponse(
-        status_code=500,
-        content={
-            "detail": "Internal Server Error",
-            "traceback": traceback.format_exc().splitlines()
-        }
-    )
-
 @app.get("/")
 async def root():
     return {"message": "Welcome to UMEB Platform API"}

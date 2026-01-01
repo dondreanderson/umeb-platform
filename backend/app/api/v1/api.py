@@ -1,5 +1,5 @@
 from app.api.v1.endpoints import (
-    login, events, event_strategy, elections, donors, users, positions, fees, debug
+    login, events, event_strategy, elections, donors, users, positions, fees
 )
 from fastapi import APIRouter
 
@@ -12,4 +12,3 @@ api_router.include_router(event_strategy.router, prefix="/strategy", tags=["stra
 api_router.include_router(elections.router, prefix="/elections", tags=["elections"])
 api_router.include_router(positions.router, prefix="/positions", tags=["positions"])
 api_router.include_router(fees.router, prefix="/fees", tags=["fees"])
-api_router.include_router(debug.router, prefix="/debug", tags=["debug"])
