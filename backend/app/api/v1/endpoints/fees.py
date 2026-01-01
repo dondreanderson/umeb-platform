@@ -51,15 +51,15 @@ def create_payment(
     if not fee:
         raise HTTPException(status_code=404, detail="Fee not found")
 
-    # Create payment record with PENDING status
+    # Create payment record with PAID status (Simulated)
     # Real payment processing should be integrated here (Stripe, PayPal, etc.)
     payment = models.Payment(
         user_id=current_user.id,
         fee_id=fee.id,
         amount=fee.amount,
-        status=PaymentStatus.PENDING,
+        status=PaymentStatus.PAID,
         payment_date=datetime.datetime.utcnow(),
-        transaction_id=payment_in.transaction_id if hasattr(payment_in, 'transaction_id') else None
+        transaction_id=payment_in.transaction_id if hasattr(payment_in, "transaction_id") else f"TRX-{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
     )
     db.add(payment)
     db.commit()

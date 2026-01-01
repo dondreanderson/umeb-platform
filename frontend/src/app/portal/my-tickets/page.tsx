@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { TicketService, EventRegistration } from "@/services/ticketing";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Calendar, MapPin, QrCode } from "lucide-react";
+import { Loader2, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function MyTicketsPage() {
     const [registrations, setRegistrations] = useState<EventRegistration[]>([]);
@@ -68,8 +69,13 @@ export default function MyTicketsPage() {
                                 </div>
                                 {reg.qr_code_data && (
                                     <div className="mt-4 p-4 bg-white rounded-lg border w-fit mx-auto">
-                                        <QrCode className="h-24 w-24 text-black" />
-                                        <p className="text-[10px] text-center mt-1 font-mono text-gray-500 truncate max-w-[100px]">
+                                        <QRCodeSVG
+                                            value={reg.qr_code_data}
+                                            size={128}
+                                            level={"H"}
+                                            includeMargin={false}
+                                        />
+                                        <p className="text-[10px] text-center mt-3 font-mono text-gray-500 truncate max-w-[128px]">
                                             {reg.qr_code_data}
                                         </p>
                                     </div>

@@ -1,9 +1,12 @@
 from typing import Any, List
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
+import datetime
+import hashlib
 from app import models, schemas
 from app.api import deps
 from app.models.ticketing import RegistrationStatus
+from app.services.email_service import email_service
 
 router = APIRouter()
 
@@ -50,6 +53,7 @@ def create_ticket_type(
 def register_for_event(
     event_id: int,
     registration_in: schemas.EventRegistrationCreate,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(deps.get_db),
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
@@ -82,16 +86,15 @@ def register_for_event(
         raise HTTPException(status_code=400, detail="User already registered for this event")
 
     # 5. Create Registration
-    # Generate QR Code Hash (Simple for now)
-    import hashlib
+    # Generate QR Code Hash
     qr_data = hashlib.sha256(f"{current_user.id}-{event_id}-{datetime.datetime.utcnow()}".encode()).hexdigest()[:16]
     
     registration = models.EventRegistration(
         event_id=event_id,
         user_id=current_user.id,
         ticket_type_id=ticket_type.id,
-        status=RegistrationStatus.CONFIRMED, # Auto-confirm for now (mock payment)
-        payment_status="PAID" if ticket_type.price > 0 else "UNPAID", # Improve logic later
+        status=RegistrationStatus.CONFIRMED,
+        payment_status="PAID" if ticket_type.price > 0 else "UNPAID",
         qr_code_data=qr_data,
         check_in_status=False
     )
@@ -103,6 +106,16 @@ def register_for_event(
     db.add(ticket_type)
     db.commit()
     db.refresh(registration)
+
+    # 7. Send Confirmation Email (Background)
+    background_tasks.add_task(
+        email_service.send_registration_confirmation,
+        user_email=current_user.email,
+        event_title=event.title,
+        ticket_type=ticket_type.name,
+        qr_code=qr_data
+    )
+
     return registration
 
 @router.get("/registrations/me", response_model=List[schemas.EventRegistration])

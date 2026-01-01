@@ -42,15 +42,40 @@ export interface ElectionResults {
     }[];
 }
 
+export interface ElectionUpdate {
+    title?: string;
+    description?: string;
+    end_date?: string;
+    is_active?: boolean;
+    position_id?: number | null;
+}
+
 export const electionService = {
     async getElections(): Promise<Election[]> {
         return fetchJson<Election[]>("/api/v1/elections/");
+    },
+
+    async getElection(id: number): Promise<Election> {
+        return fetchJson<Election>(`/api/v1/elections/${id}`);
     },
 
     async createElection(election: ElectionCreate): Promise<Election> {
         return fetchJson<Election>("/api/v1/elections/", {
             method: "POST",
             body: JSON.stringify(election),
+        });
+    },
+
+    async updateElection(id: number, election: ElectionUpdate): Promise<Election> {
+        return fetchJson<Election>(`/api/v1/elections/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(election),
+        });
+    },
+
+    async deleteElection(id: number): Promise<Election> {
+        return fetchJson<Election>(`/api/v1/elections/${id}`, {
+            method: "DELETE",
         });
     },
 

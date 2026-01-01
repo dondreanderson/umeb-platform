@@ -36,6 +36,62 @@ def create_election(
     db.refresh(election)
     return election
 
+@router.get("/{id}", response_model=schemas.Election)
+def read_election(
+    *,
+    db: Session = Depends(deps.get_db),
+    id: int,
+) -> Any:
+    """
+    Get election by ID.
+    """
+    election = db.query(models.election.Election).filter(models.election.Election.id == id).first()
+    if not election:
+        raise HTTPException(status_code=404, detail="Election not found")
+    return election
+
+@router.put("/{id}", response_model=schemas.Election)
+def update_election(
+    *,
+    db: Session = Depends(deps.get_db),
+    id: int,
+    election_in: schemas.ElectionUpdate,
+    current_user: models.user.User = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Update an election.
+    """
+    election = db.query(models.election.Election).filter(models.election.Election.id == id).first()
+    if not election:
+        raise HTTPException(status_code=404, detail="Election not found")
+    
+    update_data = election_in.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(election, field, value)
+    
+    db.add(election)
+    db.commit()
+    db.refresh(election)
+    return election
+
+@router.delete("/{id}", response_model=schemas.Election)
+def delete_election(
+    *,
+    db: Session = Depends(deps.get_db),
+    id: int,
+    current_user: models.user.User = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Delete an election.
+    """
+    election = db.query(models.election.Election).filter(models.election.Election.id == id).first()
+    if not election:
+        raise HTTPException(status_code=404, detail="Election not found")
+    
+    db.delete(election)
+    db.commit()
+    return election
+
 @router.post("/{id}/candidates", response_model=schemas.Candidate)
 def add_candidate(
     *,
