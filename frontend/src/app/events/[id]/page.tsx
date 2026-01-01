@@ -8,12 +8,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, MapPin, Clock, ArrowLeft, Share2 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { TicketSelector } from "@/components/ticketing/TicketSelector";
+import { RegistrationModal } from "@/components/ticketing/RegistrationModal";
+import { TicketType } from "@/services/ticketing";
 
 export default function EventDetailsPage() {
     const params = useParams();
     const id = Number(params?.id);
     const [event, setEvent] = useState<Event | null>(null);
     const [loading, setLoading] = useState(true);
+    const [selectedTicket, setSelectedTicket] = useState<TicketType | null>(null);
+    const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -79,19 +84,16 @@ export default function EventDetailsPage() {
                 <div className="space-y-6">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Registration</CardTitle>
+                            <CardTitle>Get Tickets</CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="flex justify-between items-center text-lg font-medium">
-                                <span>Price</span>
-                                <span>{event.ticket_price > 0 ? `$${event.ticket_price}` : "Free"}</span>
-                            </div>
-                            <Button className="w-full" size="lg">
-                                {event.ticket_price > 0 ? "Buy Ticket" : "Register Now"}
-                            </Button>
-                            <p className="text-xs text-center text-muted-foreground">
-                                {event.capacity} spots available
-                            </p>
+                        <CardContent>
+                            <TicketSelector
+                                eventId={id}
+                                onTicketSelected={(ticket) => {
+                                    setSelectedTicket(ticket);
+                                    setIsRegistrationOpen(true);
+                                }}
+                            />
                         </CardContent>
                     </Card>
 
@@ -105,6 +107,13 @@ export default function EventDetailsPage() {
                     </Card>
                 </div>
             </div>
+
+            <RegistrationModal
+                isOpen={isRegistrationOpen}
+                onClose={() => setIsRegistrationOpen(false)}
+                ticket={selectedTicket}
+                eventId={id}
+            />
         </div>
     );
 }

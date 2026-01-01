@@ -7,6 +7,6 @@ from app.models.event_goal import EventGoal
 from app.models.event_budget import EventBudget
 from app.models.event_esg import EventESG
 from app.models.election import Election, Candidate, Vote
+from app.models.ticketing import TicketType, EventRegistration, RegistrationStatus
 from app.models.position import Position
 from app.models.fee import MembershipFee, Payment
-
