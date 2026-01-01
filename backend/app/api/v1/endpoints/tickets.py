@@ -117,3 +117,58 @@ def read_my_registrations(
         models.EventRegistration.user_id == current_user.id
     ).all()
     return registrations
+
+@router.get("/events/{event_id}/registrations", response_model=List[schemas.EventRegistration])
+def read_event_registrations(
+    event_id: int,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Get all registrations for a specific event (Admin only).
+    """
+    registrations = db.query(models.EventRegistration).filter(
+        models.EventRegistration.event_id == event_id
+    ).all()
+    return registrations
+
+@router.put("/registrations/{reg_id}/check-in", response_model=schemas.EventRegistration)
+def check_in_attendee(
+    reg_id: int,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Check-in an attendee (Admin only).
+    """
+    registration = db.query(models.EventRegistration).filter(models.EventRegistration.id == reg_id).first()
+    if not registration:
+        raise HTTPException(status_code=404, detail="Registration not found")
+        
+    registration.check_in_status = True
+    registration.check_in_time = datetime.datetime.utcnow()
+    db.commit()
+    db.refresh(registration)
+    return registration
+
+@router.put("/registrations/{reg_id}/status", response_model=schemas.EventRegistration)
+def update_registration_status(
+    reg_id: int,
+    status_in: schemas.EventRegistrationUpdate,
+    db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Update registration status (Admin only).
+    """
+    registration = db.query(models.EventRegistration).filter(models.EventRegistration.id == reg_id).first()
+    if not registration:
+        raise HTTPException(status_code=404, detail="Registration not found")
+        
+    update_data = status_in.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(registration, field, value)
+        
+    db.commit()
+    db.refresh(registration)
+    return registration

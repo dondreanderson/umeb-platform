@@ -1,4 +1,4 @@
-    login, events, event_strategy, elections, donors, users, positions, fees, tickets
+    login, events, event_strategy, elections, donors, users, positions, fees, tickets, agenda, sponsors
 )
 from fastapi import APIRouter
 
@@ -12,3 +12,5 @@ api_router.include_router(elections.router, prefix="/elections", tags=["election
 api_router.include_router(positions.router, prefix="/positions", tags=["positions"])
 api_router.include_router(fees.router, prefix="/fees", tags=["fees"])
 api_router.include_router(tickets.router, tags=["tickets"])
+api_router.include_router(agenda.router, tags=["agenda"])
+api_router.include_router(sponsors.router, tags=["sponsors"])
