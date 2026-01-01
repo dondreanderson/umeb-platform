@@ -13,12 +13,15 @@ def read_fees(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
-    current_user: models.User = Depends(deps.get_current_user_optional),
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Retrieve active membership fees.
+    Retrieve active membership fees for current tenant.
     """
-    fees = db.query(models.MembershipFee).filter(models.MembershipFee.is_active == True).offset(skip).limit(limit).all()
+    fees = db.query(models.MembershipFee).filter(
+        models.MembershipFee.is_active == True,
+        models.MembershipFee.tenant_id == current_tenant.id
+    ).offset(skip).limit(limit).all()
     return fees
 
 @router.post("/fees", response_model=schemas.MembershipFee)
@@ -27,11 +30,12 @@ def create_fee(
     db: Session = Depends(deps.get_db),
     fee_in: schemas.MembershipFeeCreate,
     current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Create new membership fee (Admin only).
+    Create new membership fee for current tenant (Admin only).
     """
-    fee = models.MembershipFee(**fee_in.dict())
+    fee = models.MembershipFee(**fee_in.model_dump(), tenant_id=current_tenant.id)
     db.add(fee)
     db.commit()
     db.refresh(fee)
@@ -82,9 +86,12 @@ def read_all_payments(
     skip: int = 0,
     limit: int = 100,
     current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Get all payments (Admin).
+    Get all payments for current tenant (Admin).
     """
-    payments = db.query(models.Payment).offset(skip).limit(limit).all()
+    payments = db.query(models.Payment).join(models.MembershipFee).filter(
+        models.MembershipFee.tenant_id == current_tenant.id
+    ).offset(skip).limit(limit).all()
     return payments

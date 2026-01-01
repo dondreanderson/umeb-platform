@@ -73,8 +73,42 @@ def get_current_active_superuser(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
     # In this app, role 'admin' is treated as superuser/admin
-    if current_user.role != "admin":
+    if current_user.role != models.UserRole.ADMIN:
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
         )
     return current_user
+
+def get_current_tenant(
+    current_user: models.User = Depends(get_current_active_user),
+) -> models.Tenant:
+    """
+    Get the tenant for the current user.
+    """
+    if not current_user.tenant_id:
+        raise HTTPException(
+            status_code=404,
+            detail="User is not associated with any account/tenant."
+        )
+    return current_user.tenant
+
+def check_tenant_plan(required_tier: models.PlanTier):
+    """
+    Dependency to check if the current tenant has the required plan tier.
+    Usage: Depends(check_tenant_plan(models.PlanTier.PROFESSIONAL))
+    """
+    def _check(tenant: models.Tenant = Depends(get_current_tenant)):
+        # Simple ranking: STARTER < PROFESSIONAL < BUSINESS
+        tiers = {
+            models.PlanTier.STARTER: 1,
+            models.PlanTier.PROFESSIONAL: 2,
+            models.PlanTier.BUSINESS: 3
+        }
+        if tiers.get(tenant.plan_tier, 0) < tiers.get(required_tier, 0):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"This feature requires a {required_tier.value.title()} plan."
+            )
+        return tenant
+    return _check
+

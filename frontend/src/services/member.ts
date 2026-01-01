@@ -1,5 +1,13 @@
 import { fetchJson } from "@/lib/api";
 
+export interface Tenant {
+    id: number;
+    name: string;
+    slug: string;
+    plan_tier: "starter" | "professional" | "business";
+    is_active: boolean;
+}
+
 export interface Member {
     id: number;
     email: string;
@@ -11,6 +19,8 @@ export interface Member {
     avatar_url?: string;
     linkedin_url?: string;
     is_active: boolean;
+    tenant_id?: number;
+    tenant?: Tenant;
 }
 
 export const memberService = {

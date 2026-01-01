@@ -10,7 +10,9 @@ class Election(Base):
     start_date = Column(DateTime, default=datetime.datetime.utcnow)
     end_date = Column(DateTime, nullable=False)
     is_active = Column(Boolean, default=True)
+    tenant_id = Column(Integer, ForeignKey("tenant.id"), nullable=True) # Temporarily nullable
     
+    tenant = relationship("Tenant", back_populates="elections")
     candidates = relationship("Candidate", back_populates="election", cascade="all, delete-orphan")
     votes = relationship("Vote", back_populates="election", cascade="all, delete-orphan")
     

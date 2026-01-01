@@ -12,6 +12,9 @@ class Event(Base):
     location = Column(String, nullable=False)
     capacity = Column(Integer, default=100)
     created_by_id = Column(Integer, ForeignKey("user.id"))
+    tenant_id = Column(Integer, ForeignKey("tenant.id"), nullable=True) # Temporarily nullable
+    
+    tenant = relationship("Tenant", back_populates="events")
     
     # New fields
     status = Column(String, default="DRAFT", nullable=False) # DRAFT, PUBLISHED, CANCELLED, COMPLETED

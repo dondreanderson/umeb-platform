@@ -11,7 +11,9 @@ class Sponsor(Base):
     tier = Column(String, default="Bronze", nullable=False) # Platinum, Gold, Silver, Bronze
     website = Column(String, nullable=True)
     bio = Column(Text, nullable=True)
+    tenant_id = Column(Integer, ForeignKey("tenant.id"), nullable=True) # Temporarily nullable
     
+    tenant = relationship("Tenant", back_populates="sponsors")
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 

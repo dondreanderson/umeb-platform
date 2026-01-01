@@ -15,11 +15,14 @@ def read_events(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Retrieve events.
+    Retrieve events for the current tenant.
     """
-    events = db.query(models.Event).offset(skip).limit(limit).all()
+    events = db.query(models.Event).filter(
+        models.Event.tenant_id == current_tenant.id
+    ).offset(skip).limit(limit).all()
     return events
 
 @router.post("/", response_model=schemas.Event)
@@ -27,12 +30,17 @@ def create_event(
     *,
     db: Session = Depends(deps.get_db),
     event_in: schemas.EventCreate,
-    current_user: models.User = Depends(deps.get_current_user),
+    current_user: models.User = Depends(deps.get_current_active_user),
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Create new event.
+    Create new event for the current tenant.
     """
-    event = models.Event(**event_in.dict(), created_by_id=current_user.id)
+    event = models.Event(
+        **event_in.model_dump(),
+        created_by_id=current_user.id,
+        tenant_id=current_tenant.id
+    )
     db.add(event)
     db.commit()
     db.refresh(event)
@@ -115,12 +123,16 @@ def clone_event(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    current_user: models.User = Depends(deps.get_current_user),
+    current_user: models.User = Depends(deps.get_current_active_user),
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.PROFESSIONAL)),
 ) -> Any:
     """
-    Clone an existing event (Template).
+    Clone an existing event (Template). Professional Tier and above only.
     """
-    original_event = db.query(models.Event).filter(models.Event.id == id).first()
+    original_event = db.query(models.Event).filter(
+        models.Event.id == id,
+        models.Event.tenant_id == current_tenant.id
+    ).first()
     if not original_event:
         raise HTTPException(status_code=404, detail="Event not found")
         
@@ -154,11 +166,15 @@ def read_event(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Get event by ID.
+    Get event by ID for the current tenant.
     """
-    event = db.query(models.Event).filter(models.Event.id == id).first()
+    event = db.query(models.Event).filter(
+        models.Event.id == id,
+        models.Event.tenant_id == current_tenant.id
+    ).first()
     if not event:
         raise HTTPException(status_code=404, detail="Event not found")
     return event

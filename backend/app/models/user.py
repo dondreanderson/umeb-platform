@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Boolean, Enum
+from sqlalchemy import Column, Integer, String, Boolean, Enum, ForeignKey
+from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 import enum
 
@@ -16,6 +17,7 @@ class MembershipTier(str, enum.Enum):
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
+    tenant_id = Column(Integer, ForeignKey("tenant.id"), nullable=True) # Temporarily nullable for migration
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
@@ -23,6 +25,8 @@ class User(Base):
     
     role = Column(Enum(UserRole), default=UserRole.MEMBER)
     membership_tier = Column(Enum(MembershipTier), default=MembershipTier.NONE)
+
+    tenant = relationship("Tenant", back_populates="users")
 
     @property
     def is_superuser(self) -> bool:

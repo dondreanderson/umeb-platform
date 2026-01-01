@@ -15,6 +15,7 @@ class Donor(Base):
 
 class FundraisingCampaign(Base):
     id = Column(Integer, primary_key=True, index=True)
+    tenant_id = Column(Integer, ForeignKey("tenant.id"), nullable=True) # Temporarily nullable
     title = Column(String, index=True)
     description = Column(String, nullable=True)
     target_amount = Column(Float, nullable=False)
@@ -23,6 +24,7 @@ class FundraisingCampaign(Base):
     end_date = Column(DateTime, nullable=True)
     is_active = Column(Boolean, default=True)
     
+    tenant = relationship("Tenant", back_populates="campaigns")
     donations = relationship("Donation", back_populates="campaign")
 
 class Donation(Base):

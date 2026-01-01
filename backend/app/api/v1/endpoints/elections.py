@@ -13,11 +13,14 @@ def read_elections(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.PROFESSIONAL)),
 ) -> Any:
     """
-    Retrieve elections.
+    Retrieve elections for the current tenant. Professional Tier and above only.
     """
-    elections = db.query(models.election.Election).offset(skip).limit(limit).all()
+    elections = db.query(models.Election).filter(
+        models.Election.tenant_id == current_tenant.id
+    ).offset(skip).limit(limit).all()
     return elections
 
 @router.post("/", response_model=schemas.Election)
@@ -25,12 +28,13 @@ def create_election(
     *,
     db: Session = Depends(deps.get_db),
     election_in: schemas.ElectionCreate,
-    current_user: models.user.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.PROFESSIONAL)),
 ) -> Any:
     """
-    Create new election.
+    Create new election for current tenant.
     """
-    election = models.election.Election(**election_in.model_dump())
+    election = models.Election(**election_in.model_dump(), tenant_id=current_tenant.id)
     db.add(election)
     db.commit()
     db.refresh(election)
@@ -41,11 +45,15 @@ def read_election(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.PROFESSIONAL)),
 ) -> Any:
     """
-    Get election by ID.
+    Get election by ID for current tenant.
     """
-    election = db.query(models.election.Election).filter(models.election.Election.id == id).first()
+    election = db.query(models.Election).filter(
+        models.Election.id == id,
+        models.Election.tenant_id == current_tenant.id
+    ).first()
     if not election:
         raise HTTPException(status_code=404, detail="Election not found")
     return election
@@ -56,12 +64,16 @@ def update_election(
     db: Session = Depends(deps.get_db),
     id: int,
     election_in: schemas.ElectionUpdate,
-    current_user: models.user.User = Depends(deps.get_current_active_superuser),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.PROFESSIONAL)),
 ) -> Any:
     """
-    Update an election.
+    Update an election for current tenant.
     """
-    election = db.query(models.election.Election).filter(models.election.Election.id == id).first()
+    election = db.query(models.Election).filter(
+        models.Election.id == id,
+        models.Election.tenant_id == current_tenant.id
+    ).first()
     if not election:
         raise HTTPException(status_code=404, detail="Election not found")
     

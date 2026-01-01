@@ -14,6 +14,7 @@ class UserBase(BaseModel):
     phone_number: Optional[str] = None
     avatar_url: Optional[str] = None
     linkedin_url: Optional[str] = None
+    tenant_id: Optional[int] = None
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):

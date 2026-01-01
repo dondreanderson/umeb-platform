@@ -21,6 +21,9 @@ class MembershipFee(Base):
     interval = Column(String, default=FeeInterval.YEARLY, nullable=False)
     is_active = Column(Boolean, default=True)
     description = Column(String, nullable=True)
+    tenant_id = Column(Integer, ForeignKey("tenant.id"), nullable=True) # Temporarily nullable
+    
+    tenant = relationship("Tenant", back_populates="fees")
 
 class Payment(Base):
     id = Column(Integer, primary_key=True, index=True)

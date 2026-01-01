@@ -24,21 +24,25 @@ def create_donation(
     *,
     db: Session = Depends(deps.get_db),
     donation_in: schemas.DonationCreate,
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.BUSINESS)),
 ) -> Any:
     """
-    Create new donation and update campaign if applicable.
+    Create new donation and update campaign if applicable (Business tier).
     """
     donation = models.Donation(**donation_in.model_dump())
     db.add(donation)
     
-    # Update campaign current amount if applicable
+    # Update campaign current amount if applicable and verify tenant
     if donation.campaign_id:
         campaign = db.query(models.FundraisingCampaign).filter(
-            models.FundraisingCampaign.id == donation.campaign_id
+            models.FundraisingCampaign.id == donation.campaign_id,
+            models.FundraisingCampaign.tenant_id == current_tenant.id
         ).first()
         if campaign:
             campaign.current_amount += donation.amount
             db.add(campaign)
+        else:
+            raise HTTPException(status_code=404, detail="Campaign not found for this account")
             
     db.commit()
     db.refresh(donation)
@@ -49,11 +53,14 @@ def read_campaigns(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
     limit: int = 100,
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Retrieve fundraising campaigns.
+    Retrieve fundraising campaigns for current tenant.
     """
-    campaigns = db.query(models.FundraisingCampaign).offset(skip).limit(limit).all()
+    campaigns = db.query(models.FundraisingCampaign).filter(
+        models.FundraisingCampaign.tenant_id == current_tenant.id
+    ).offset(skip).limit(limit).all()
     return campaigns
 
 @router.post("/campaigns", response_model=schemas.FundraisingCampaign)
@@ -62,11 +69,13 @@ def create_campaign(
     db: Session = Depends(deps.get_db),
     campaign_in: schemas.FundraisingCampaignCreate,
     current_user: models.User = Depends(deps.get_current_active_superuser),
+    current_tenant: models.Tenant = Depends(deps.check_tenant_plan(models.PlanTier.BUSINESS)),
 ) -> Any:
     """
-    Create new fundraising campaign.
+    Create new fundraising campaign for current tenant.
+.
     """
-    campaign = models.FundraisingCampaign(**campaign_in.model_dump())
+    campaign = models.FundraisingCampaign(**campaign_in.model_dump(), tenant_id=current_tenant.id)
     db.add(campaign)
     db.commit()
     db.refresh(campaign)
@@ -77,11 +86,15 @@ def read_campaign(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
+    current_tenant: models.Tenant = Depends(deps.get_current_tenant),
 ) -> Any:
     """
-    Get campaign by ID.
+    Get campaign by ID for current tenant.
     """
-    campaign = db.query(models.FundraisingCampaign).filter(models.FundraisingCampaign.id == id).first()
+    campaign = db.query(models.FundraisingCampaign).filter(
+        models.FundraisingCampaign.id == id,
+        models.FundraisingCampaign.tenant_id == current_tenant.id
+    ).first()
     if not campaign:
         raise HTTPException(status_code=404, detail="Campaign not found")
     return campaign
