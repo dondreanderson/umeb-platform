@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import React from "react";
+import * as React from "react";
 import { memberService, Member } from "@/services/member";
 
 const sidebarItems = [
