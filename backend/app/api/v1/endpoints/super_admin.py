@@ -17,7 +17,7 @@ def get_system_admin(
     # Example: if current_user.email != "superadmin@umeb.org": raise...
     return current_user
 
-@router.get("/tenants", response_model=List[schemas.tenant.Tenant])
+@router.get("/tenants", response_model=List[schemas.Tenant])
 def read_all_tenants(
     db: Session = Depends(deps.get_db),
     skip: int = 0,
@@ -30,11 +30,11 @@ def read_all_tenants(
     tenants = db.query(models.Tenant).offset(skip).limit(limit).all()
     return tenants
 
-@router.post("/tenants", response_model=schemas.tenant.Tenant)
+@router.post("/tenants", response_model=schemas.Tenant)
 def create_tenant(
     *,
     db: Session = Depends(deps.get_db),
-    tenant_in: schemas.tenant.TenantCreate,
+    tenant_in: schemas.TenantCreate,
     system_admin: models.User = Depends(get_system_admin),
 ) -> Any:
     """
@@ -50,12 +50,12 @@ def create_tenant(
     db.refresh(tenant)
     return tenant
 
-@router.put("/tenants/{id}", response_model=schemas.tenant.Tenant)
+@router.put("/tenants/{id}", response_model=schemas.Tenant)
 def update_tenant(
     *,
     db: Session = Depends(deps.get_db),
     id: int,
-    tenant_in: schemas.tenant.TenantUpdate,
+    tenant_in: schemas.TenantUpdate,
     system_admin: models.User = Depends(get_system_admin),
 ) -> Any:
     """

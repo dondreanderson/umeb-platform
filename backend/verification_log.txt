@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\dondr\UMEB-Platform\backend\verify_backend.py", line 5, in <module>
+    from main import app
+  File "C:\Users\dondr\UMEB-Platform\backend\main.py", line 4, in <module>
+    from app.api.v1.api import api_router
+  File "C:\Users\dondr\UMEB-Platform\backend\app\api\v1\api.py", line 2, in <module>
+    from app.api.v1.endpoints import (
+        login, events, event_strategy, elections, donors, users, positions, fees, tickets, agenda, sponsors, super_admin
+    )
+  File "C:\Users\dondr\UMEB-Platform\backend\app\api\v1\endpoints\super_admin.py", line 20, in <module>
+    @router.get("/tenants", response_model=List[schemas.tenant.Tenant])
+                                                ^^^^^^^^^^^^^^
+AttributeError: module 'app.schemas' has no attribute 'tenant'

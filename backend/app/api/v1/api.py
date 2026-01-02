@@ -1,6 +1,7 @@
-    login, events, event_strategy, elections, donors, users, positions, fees, tickets, agenda, sponsors
-)
 from fastapi import APIRouter
+from app.api.v1.endpoints import (
+    login, events, event_strategy, elections, donors, users, positions, fees, tickets, agenda, sponsors, super_admin
+)
 
 api_router = APIRouter()
 api_router.include_router(login.router, tags=["login"])
