@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "next/navigation";
 import { eventService, Event } from "@/services/event";
 import { Button } from "@/components/ui/button";
@@ -17,12 +17,12 @@ import { SponsorsGrid } from "@/components/events/SponsorsGrid";
 export default function EventDetailsPage() {
     const params = useParams();
     const id = Number(params?.id);
-    const [event, setEvent] = useState<Event | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [selectedTicket, setSelectedTicket] = useState<TicketType | null>(null);
-    const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+    const [event, setEvent] = React.useState<Event | null>(null);
+    const [loading, setLoading] = React.useState(true);
+    const [selectedTicket, setSelectedTicket] = React.useState<TicketType | null>(null);
+    const [isRegistrationOpen, setIsRegistrationOpen] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (id) {
             eventService.getEvent(id)
                 .then(setEvent)

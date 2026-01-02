@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { eventService, Event } from "@/services/events";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Globe, Tag, ArrowLeft } from "lucide-react";
@@ -13,10 +13,10 @@ interface GroupedEvents {
 }
 
 export default function PortfolioPage() {
-    const [events, setEvents] = useState<Event[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [events, setEvents] = React.useState<Event[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadEvents();
     }, []);
 

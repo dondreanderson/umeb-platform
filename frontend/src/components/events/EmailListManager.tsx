@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,18 +15,18 @@ interface EmailListManagerProps {
 }
 
 export function EmailListManager({ eventId }: EmailListManagerProps) {
-    const [emailLists, setEmailLists] = useState<EmailList[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [isCreateOpen, setIsCreateOpen] = useState(false);
-    const [newList, setNewList] = useState<EmailListCreate>({
+    const [emailLists, setEmailLists] = React.useState<EmailList[]>([]);
+    const [loading, setLoading] = React.useState(false);
+    const [isCreateOpen, setIsCreateOpen] = React.useState(false);
+    const [newList, setNewList] = React.useState<EmailListCreate>({
         name: "",
         subject: "",
         body: "",
         recipients: []
     });
-    const [recipientText, setRecipientText] = useState("");
+    const [recipientText, setRecipientText] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadEmailLists();
     }, [eventId]);
 

@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState, useEffect } from "react";
+import React from "react";
 import { memberService, Member } from "@/services/member";
 
 const sidebarItems = [
@@ -34,10 +34,10 @@ const sidebarItems = [
 
 export function AdminSidebar() {
     const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(false);
-    const [currentUser, setCurrentUser] = useState<Member | null>(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [currentUser, setCurrentUser] = React.useState<Member | null>(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         async function loadUser() {
             try {
                 const user = await memberService.getMe();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { TicketService, EventRegistration } from "@/services/ticketing";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function MyTicketsPage() {
-    const [registrations, setRegistrations] = useState<EventRegistration[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [registrations, setRegistrations] = React.useState<EventRegistration[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadRegistrations();
     }, []);
 

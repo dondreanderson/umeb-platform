@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,9 +15,9 @@ import { Switch } from "@/components/ui/switch";
 
 export default function CreateEventPage() {
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = React.useState({
         title: "",
         description: "",
         start_time: "",

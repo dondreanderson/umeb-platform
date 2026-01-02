@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -11,10 +11,10 @@ import { authService } from "@/services/auth";
 
 export default function LoginPage() {
     const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState("");
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { strategyService, StrategyDashboardStats } from "@/services/strategy";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Loader2, DollarSign, Target, Leaf, TrendingUp } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 export function EventStrategyDashboard() {
-    const [stats, setStats] = useState<StrategyDashboardStats | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = React.useState<StrategyDashboardStats | null>(null);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadData();
     }, []);
 

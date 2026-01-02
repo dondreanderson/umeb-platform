@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SponsorService, Sponsor } from "@/services/sponsor";
 import { Loader2, ExternalLink, Award } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -8,10 +8,10 @@ interface SponsorsGridProps {
 }
 
 export function SponsorsGrid({ eventId }: SponsorsGridProps) {
-    const [sponsors, setSponsors] = useState<Sponsor[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [sponsors, setSponsors] = React.useState<Sponsor[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadSponsors();
     }, [eventId]);
 
@@ -49,8 +49,8 @@ export function SponsorsGrid({ eventId }: SponsorsGridProps) {
                         <div className="flex items-center gap-4">
                             <div className="h-px flex-1 bg-border" />
                             <h3 className={`text-xl font-bold tracking-tight flex items-center gap-2 ${tier === "Platinum" ? "text-blue-600" :
-                                    tier === "Gold" ? "text-yellow-600" :
-                                        tier === "Silver" ? "text-slate-500" : "text-orange-600"
+                                tier === "Gold" ? "text-yellow-600" :
+                                    tier === "Silver" ? "text-slate-500" : "text-orange-600"
                                 }`}>
                                 <Award className="h-5 w-5" />
                                 {tier} Partners
@@ -59,8 +59,8 @@ export function SponsorsGrid({ eventId }: SponsorsGridProps) {
                         </div>
 
                         <div className={`grid gap-8 ${tier === "Platinum" ? "grid-cols-1 md:grid-cols-2" :
-                                tier === "Gold" ? "grid-cols-2 md:grid-cols-3" :
-                                    "grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
+                            tier === "Gold" ? "grid-cols-2 md:grid-cols-3" :
+                                "grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
                             }`}>
                             {tierSponsors.map((sponsor) => (
                                 <div key={sponsor.id} className="group relative flex flex-col items-center text-center space-y-3 bg-muted/20 p-6 rounded-2xl border border-transparent transition-all hover:bg-background hover:border-primary/20 hover:shadow-xl">

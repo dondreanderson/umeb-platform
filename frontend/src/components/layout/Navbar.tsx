@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import React from "react";
 import { authService } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { memberService, Member } from "@/services/member";
@@ -20,10 +20,10 @@ import {
 
 export function Navbar() {
     const router = useRouter();
-    const [token, setToken] = useState<string | null>(null);
-    const [user, setUser] = useState<Member | null>(null);
+    const [token, setToken] = React.useState<string | null>(null);
+    const [user, setUser] = React.useState<Member | null>(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const t = authService.getToken();
         setToken(t);
         if (t) {

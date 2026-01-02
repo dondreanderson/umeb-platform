@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AgendaService, EventSession } from "@/services/agenda";
 import { Loader2, Calendar, Clock, MapPin, User, Info } from "lucide-react";
 
@@ -7,10 +7,10 @@ interface AgendaViewProps {
 }
 
 export function AgendaView({ eventId }: AgendaViewProps) {
-    const [sessions, setSessions] = useState<EventSession[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [sessions, setSessions] = React.useState<EventSession[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadSessions();
     }, [eventId]);
 

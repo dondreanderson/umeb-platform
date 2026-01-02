@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { feeService, MembershipFee, Payment } from "@/services/fee";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,20 +12,20 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Badge } from "@/components/ui/badge";
 
 export default function AdminFeesPage() {
-    const [fees, setFees] = useState<MembershipFee[]>([]);
-    const [payments, setPayments] = useState<Payment[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const [fees, setFees] = React.useState<MembershipFee[]>([]);
+    const [payments, setPayments] = React.useState<Payment[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [isCreateOpen, setIsCreateOpen] = React.useState(false);
 
     // Creating Fee
-    const [newFee, setNewFee] = useState({
+    const [newFee, setNewFee] = React.useState({
         name: "",
         amount: "50",
         interval: "YEARLY",
         description: ""
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadData();
     }, []);
 

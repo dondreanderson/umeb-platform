@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Vote as VoteIcon, Calendar, Loader2 } from "lucide-react";
@@ -9,10 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function AdminElectionsPage() {
-    const [elections, setElections] = useState<Election[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [elections, setElections] = React.useState<Election[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadElections();
     }, []);
 
@@ -35,7 +35,7 @@ export default function AdminElectionsPage() {
                     <p className="text-muted-foreground">Manage organizational elections and voting processes.</p>
                 </div>
                 <Button asChild>
-                    <Link href="/admin/elections/create">
+                    <Link href="/admin/elections/new">
                         <PlusCircle className="mr-2 h-4 w-4" />
                         New Election
                     </Link>

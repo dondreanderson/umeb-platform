@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { systemAdminService, GlobalStats } from "@/services/systemAdmin";
 import { Tenant } from "@/services/member";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -41,17 +41,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export default function SuperAdminDashboard() {
     const { toast } = useToast();
-    const [stats, setStats] = useState<GlobalStats | null>(null);
-    const [tenants, setTenants] = useState<Tenant[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = React.useState<GlobalStats | null>(null);
+    const [tenants, setTenants] = React.useState<Tenant[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
     // Create Tenant State
-    const [isCreating, setIsCreating] = useState(false);
-    const [showCreate, setShowCreate] = useState(false);
-    const [newTenantName, setNewTenantName] = useState("");
-    const [newTenantSlug, setNewTenantSlug] = useState("");
+    const [isCreating, setIsCreating] = React.useState(false);
+    const [showCreate, setShowCreate] = React.useState(false);
+    const [newTenantName, setNewTenantName] = React.useState("");
+    const [newTenantSlug, setNewTenantSlug] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadData();
     }, []);
 

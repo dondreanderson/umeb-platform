@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,11 +14,11 @@ interface GoalsTabProps {
 }
 
 export function GoalsTab({ eventId }: GoalsTabProps) {
-    const [goals, setGoals] = useState<EventGoal[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false);
+    const [goals, setGoals] = React.useState<EventGoal[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [showForm, setShowForm] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadGoals();
     }, [eventId]);
 

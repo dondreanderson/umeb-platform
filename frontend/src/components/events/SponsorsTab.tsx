@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SponsorService, Sponsor, SponsorCreate } from "@/services/sponsor";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,12 +21,12 @@ const TIER_COLORS: Record<string, string> = {
 };
 
 export function SponsorsTab({ eventId }: SponsorsTabProps) {
-    const [sponsors, setSponsors] = useState<Sponsor[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isAdding, setIsAdding] = useState(false);
+    const [sponsors, setSponsors] = React.useState<Sponsor[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [isAdding, setIsAdding] = React.useState(false);
     const { toast } = useToast();
 
-    const [newSponsor, setNewSponsor] = useState<Partial<SponsorCreate>>({
+    const [newSponsor, setNewSponsor] = React.useState<Partial<SponsorCreate>>({
         name: "",
         logo_url: "",
         tier: "Bronze",
@@ -34,7 +34,7 @@ export function SponsorsTab({ eventId }: SponsorsTabProps) {
         bio: ""
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadSponsors();
     }, [eventId]);
 

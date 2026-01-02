@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { memberService, Member } from "@/services/member";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -12,12 +12,12 @@ import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
     const router = useRouter();
-    const [profile, setProfile] = useState<Member | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [profile, setProfile] = React.useState<Member | null>(null);
+    const [loading, setLoading] = React.useState(true);
+    const [saving, setSaving] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadProfile();
     }, []);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { eventService, Event } from "@/services/event";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,12 +19,12 @@ import { CalendarView } from "@/components/events/CalendarView";
 import { LayoutList, Calendar as CalendarIcon } from "lucide-react";
 
 export default function AdminEventsPage() {
-    const [events, setEvents] = useState<Event[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
+    const [events, setEvents] = React.useState<Event[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [viewMode, setViewMode] = React.useState<"list" | "calendar">("list");
     const router = useRouter();
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadEvents();
     }, []);
 

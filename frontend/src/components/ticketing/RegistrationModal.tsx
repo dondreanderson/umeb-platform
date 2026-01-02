@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TicketType, TicketService } from '@/services/ticketing';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -13,8 +13,8 @@ interface RegistrationModalProps {
 }
 
 export function RegistrationModal({ isOpen, onClose, ticket, eventId }: RegistrationModalProps) {
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
     const { toast } = useToast();
 
     if (!ticket) return null;

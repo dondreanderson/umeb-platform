@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { electionService, Election, Candidate } from "@/services/election";
@@ -10,12 +10,12 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 export default function VotingPortalPage() {
-    const [elections, setElections] = useState<Election[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [votingFor, setVotingFor] = useState<number | null>(null);
-    const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+    const [elections, setElections] = React.useState<Election[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [votingFor, setVotingFor] = React.useState<number | null>(null);
+    const [message, setMessage] = React.useState<{ type: "success" | "error"; text: string } | null>(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadElections();
     }, []);
 

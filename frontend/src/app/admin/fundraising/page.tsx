@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { fundraisingService, FundraisingCampaign, Donor } from "@/services/fundraising";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -38,19 +38,19 @@ import { useToast } from "@/components/ui/use-toast";
 
 export default function AdminFundraisingPage() {
     const { toast } = useToast();
-    const [campaigns, setCampaigns] = useState<FundraisingCampaign[]>([]);
-    const [donors, setDonors] = useState<Donor[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isCreating, setIsCreating] = useState(false);
-    const [showCreateDialog, setShowCreateDialog] = useState(false);
+    const [campaigns, setCampaigns] = React.useState<FundraisingCampaign[]>([]);
+    const [donors, setDonors] = React.useState<Donor[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [isCreating, setIsCreating] = React.useState(false);
+    const [showCreateDialog, setShowCreateDialog] = React.useState(false);
 
     // Create Campaign Form State
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [targetAmount, setTargetAmount] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [title, setTitle] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [targetAmount, setTargetAmount] = React.useState("");
+    const [endDate, setEndDate] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadData();
     }, []);
 

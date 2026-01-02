@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { fundraisingService, FundraisingCampaign } from "@/services/fundraising";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -21,18 +21,18 @@ import { useToast } from "@/components/ui/use-toast";
 
 export default function DonationsPage() {
     const { toast } = useToast();
-    const [campaigns, setCampaigns] = useState<FundraisingCampaign[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedCampaign, setSelectedCampaign] = useState<FundraisingCampaign | null>(null);
-    const [amount, setAmount] = useState("");
-    const [isDonating, setIsDonating] = useState(false);
+    const [campaigns, setCampaigns] = React.useState<FundraisingCampaign[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [selectedCampaign, setSelectedCampaign] = React.useState<FundraisingCampaign | null>(null);
+    const [amount, setAmount] = React.useState("");
+    const [isDonating, setIsDonating] = React.useState(false);
 
     // Temp donor info (usually would be from logged in user)
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = React.useState("");
+    const [firstName, setFirstName] = React.useState("");
+    const [lastName, setLastName] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadCampaigns();
     }, []);
 

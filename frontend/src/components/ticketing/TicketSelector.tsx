@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { TicketService, TicketType } from '@/services/ticketing';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,11 +12,11 @@ interface TicketSelectorProps {
 }
 
 export function TicketSelector({ eventId, onTicketSelected }: TicketSelectorProps) {
-    const [tickets, setTickets] = useState<TicketType[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [tickets, setTickets] = React.useState<TicketType[]>([]);
+    const [loading, setLoading] = React.useState(true);
     const { toast } = useToast();
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadTickets();
     }, [eventId]);
 

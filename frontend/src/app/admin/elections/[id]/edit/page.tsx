@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -23,25 +23,25 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 
 export default function EditElectionPage({ params }: { params: Promise<{ id: string }> }) {
-    const resolvedParams = use(params);
+    const resolvedParams = React.use(params);
     const id = Number(resolvedParams.id);
     const router = useRouter();
     const { toast } = useToast();
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [isSaving, setIsSaving] = useState(false);
-    const [error, setError] = useState("");
-    const [positions, setPositions] = useState<Position[]>([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [isSaving, setIsSaving] = React.useState(false);
+    const [error, setError] = React.useState("");
+    const [positions, setPositions] = React.useState<Position[]>([]);
 
     // Form state
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [endDate, setEndDate] = useState("");
-    const [positionId, setPositionId] = useState<string>("none");
-    const [isActive, setIsActive] = useState(true);
-    const [candidates, setCandidates] = useState<(Candidate | { name: string; bio: string })[]>([]);
+    const [title, setTitle] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [endDate, setEndDate] = React.useState("");
+    const [positionId, setPositionId] = React.useState<string>("none");
+    const [isActive, setIsActive] = React.useState(true);
+    const [candidates, setCandidates] = React.useState<(Candidate | { name: string; bio: string })[]>([]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         Promise.all([
             electionService.getElection(id),
             positionService.getPositions()

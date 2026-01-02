@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { positionService, Position } from "@/services/position";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,17 +20,17 @@ import {
 } from "@/components/ui/dialog";
 
 export default function PositionsPage() {
-    const [positions, setPositions] = useState<Position[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [open, setOpen] = useState(false);
+    const [positions, setPositions] = React.useState<Position[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     // Form State
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [termLength, setTermLength] = useState("1 Year");
-    const [isExecutive, setIsExecutive] = useState(false);
+    const [title, setTitle] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [termLength, setTermLength] = React.useState("1 Year");
+    const [isExecutive, setIsExecutive] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadPositions();
     }, []);
 

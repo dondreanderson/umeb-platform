@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { memberService, Member } from "@/services/member";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,24 +36,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function MemberDirectoryPage() {
-    const [members, setMembers] = useState<Member[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [search, setSearch] = useState("");
-    const [open, setOpen] = useState(false);
-    const [saving, setSaving] = useState(false);
-    const [viewMember, setViewMember] = useState<Member | null>(null);
+    const [members, setMembers] = React.useState<Member[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [search, setSearch] = React.useState("");
+    const [open, setOpen] = React.useState(false);
+    const [saving, setSaving] = React.useState(false);
+    const [viewMember, setViewMember] = React.useState<Member | null>(null);
 
     // Filters
-    const [roleFilter, setRoleFilter] = useState("all");
+    const [roleFilter, setRoleFilter] = React.useState("all");
 
     // Form
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [role, setRole] = useState("member");
-    const [tier, setTier] = useState("none");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [fullName, setFullName] = React.useState("");
+    const [role, setRole] = React.useState("member");
+    const [tier, setTier] = React.useState("none");
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadMembers();
     }, []);
 

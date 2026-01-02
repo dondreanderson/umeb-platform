@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -21,20 +21,20 @@ import {
 
 export default function CreateElectionPage() {
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [positions, setPositions] = useState<Position[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState("");
+    const [positions, setPositions] = React.useState<Position[]>([]);
 
     // Form state
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [endDate, setEndDate] = useState("");
-    const [positionId, setPositionId] = useState<string>("none");
-    const [candidates, setCandidates] = useState<{ name: string; bio: string }[]>([
+    const [title, setTitle] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [endDate, setEndDate] = React.useState("");
+    const [positionId, setPositionId] = React.useState<string>("none");
+    const [candidates, setCandidates] = React.useState<{ name: string; bio: string }[]>([
         { name: "", bio: "" }
     ]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         positionService.getPositions().then(setPositions).catch(console.error);
     }, []);
 

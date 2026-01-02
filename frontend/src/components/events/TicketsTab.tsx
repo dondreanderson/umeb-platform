@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { TicketService, TicketType, TicketTypeCreate } from "@/services/ticketing";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,21 +20,21 @@ interface TicketsTabProps {
 }
 
 export function TicketsTab({ eventId }: TicketsTabProps) {
-    const [tickets, setTickets] = useState<TicketType[]>([]);
-    const [registrations, setRegistrations] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [loadingRegs, setLoadingRegs] = useState(false);
-    const [isAdding, setIsAdding] = useState(false);
+    const [tickets, setTickets] = React.useState<TicketType[]>([]);
+    const [registrations, setRegistrations] = React.useState<any[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [loadingRegs, setLoadingRegs] = React.useState(false);
+    const [isAdding, setIsAdding] = React.useState(false);
     const { toast } = useToast();
 
-    const [newTicket, setNewTicket] = useState<Partial<TicketTypeCreate>>({
+    const [newTicket, setNewTicket] = React.useState<Partial<TicketTypeCreate>>({
         name: "",
         description: "",
         price: 0,
         quantity_available: 100
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadTickets();
         loadRegistrations();
     }, [eventId]);

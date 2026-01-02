@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -20,11 +20,11 @@ export default function EventDetailsPage() {
     const router = useRouter();
     const eventId = Number(params.id);
 
-    const [event, setEvent] = useState<Event | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<"budget" | "goals" | "esg" | "agenda" | "tickets" | "sponsors">("budget");
+    const [event, setEvent] = React.useState<Event | null>(null);
+    const [loading, setLoading] = React.useState(true);
+    const [activeTab, setActiveTab] = React.useState<"budget" | "goals" | "esg" | "agenda" | "tickets" | "sponsors">("budget");
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadEvent();
     }, [eventId]);
 

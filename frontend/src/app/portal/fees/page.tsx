@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { feeService, MembershipFee, Payment } from "@/services/fee";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,12 +8,12 @@ import { Loader2, DollarSign, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function MemberFeesPage() {
-    const [fees, setFees] = useState<MembershipFee[]>([]);
-    const [myPayments, setMyPayments] = useState<Payment[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [processingId, setProcessingId] = useState<number | null>(null);
+    const [fees, setFees] = React.useState<MembershipFee[]>([]);
+    const [myPayments, setMyPayments] = React.useState<Payment[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [processingId, setProcessingId] = React.useState<number | null>(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadData();
     }, []);
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AgendaService, EventSession, EventSessionCreate } from "@/services/agenda";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,12 +12,12 @@ interface AgendaTabProps {
 }
 
 export function AgendaTab({ eventId }: AgendaTabProps) {
-    const [sessions, setSessions] = useState<EventSession[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isAdding, setIsAdding] = useState(false);
+    const [sessions, setSessions] = React.useState<EventSession[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [isAdding, setIsAdding] = React.useState(false);
     const { toast } = useToast();
 
-    const [newSession, setNewSession] = useState<Partial<EventSessionCreate>>({
+    const [newSession, setNewSession] = React.useState<Partial<EventSessionCreate>>({
         title: "",
         description: "",
         start_time: "",
@@ -26,7 +26,7 @@ export function AgendaTab({ eventId }: AgendaTabProps) {
         speaker_name: ""
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadSessions();
     }, [eventId]);
 

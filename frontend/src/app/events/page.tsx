@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { eventService, Event as EventModel } from "@/services/event";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function EventsPage() {
-    const [events, setEvents] = useState<EventModel[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [events, setEvents] = React.useState<EventModel[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadEvents();
     }, []);
 

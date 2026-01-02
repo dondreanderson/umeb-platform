@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,11 +13,11 @@ interface ESGTabProps {
 }
 
 export function ESGTab({ eventId }: ESGTabProps) {
-    const [metrics, setMetrics] = useState<EventESG[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false);
+    const [metrics, setMetrics] = React.useState<EventESG[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [showForm, setShowForm] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadESG();
     }, [eventId]);
 

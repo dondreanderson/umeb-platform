@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -14,11 +14,11 @@ export default function ElectionResultsPage() {
     const router = useRouter();
     const id = Number(params.id);
 
-    const [results, setResults] = useState<ElectionResults | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+    const [results, setResults] = React.useState<ElectionResults | null>(null);
+    const [loading, setLoading] = React.useState(true);
+    const [lastUpdated, setLastUpdated] = React.useState<Date | null>(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         loadResults();
         // Poll every 5 seconds
         const interval = setInterval(loadResults, 5000);
