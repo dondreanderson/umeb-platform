@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { eventService, Event } from "@/services/event";
+import { eventService, Event as EventModel } from "@/services/event";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Clock, Ticket } from "lucide-react";
+// import { Calendar, MapPin, Clock, Ticket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link"; // Ensure Link is imported
+import Link from "next/link";
 
 export default function EventsPage() {
-    const [events, setEvents] = useState<Event[]>([]);
+    const [events, setEvents] = useState<EventModel[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -68,17 +68,17 @@ export default function EventsPage() {
                                 </p>
                                 <div className="space-y-2 text-sm">
                                     <div className="flex items-center gap-2">
-                                        <Calendar className="h-4 w-4 text-primary" />
+                                        {/* <Calendar className="h-4 w-4 text-primary" /> */}
                                         <span>{new Date(event.start_time).toLocaleDateString()}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Clock className="h-4 w-4 text-primary" />
+                                        {/* <Clock className="h-4 w-4 text-primary" /> */}
                                         <span>
                                             {new Date(event.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <MapPin className="h-4 w-4 text-primary" />
+                                        {/* <MapPin className="h-4 w-4 text-primary" /> */}
                                         <span className="line-clamp-1">{event.location}</span>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ export default function EventsPage() {
                             <CardFooter>
                                 <Link href={`/events/${event.id}`} className="w-full">
                                     <Button className="w-full">
-                                        <Ticket className="mr-2 h-4 w-4" />
+                                        {/* <Ticket className="mr-2 h-4 w-4" /> */}
                                         View Details
                                     </Button>
                                 </Link>
