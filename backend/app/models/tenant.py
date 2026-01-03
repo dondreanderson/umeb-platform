@@ -13,7 +13,7 @@ class Tenant(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, nullable=False)
     slug = Column(String, index=True, unique=True, nullable=False)
-    plan_tier = Column(Enum(PlanTier), default=PlanTier.STARTER)
+    plan_tier = Column(String, default="starter")
     is_active = Column(Boolean(), default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
