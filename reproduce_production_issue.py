@@ -54,9 +54,27 @@ def check_tenants(token):
     except Exception as e:
         print(f"Tenants Exception: {e}")
 
+def create_tenant(token):
+    print("Checking POST /super-admin/tenants...")
+    headers = {"Authorization": f"Bearer {token}"}
+    import random
+    slug = f"test-org-{random.randint(1000,9999)}"
+    data = {
+        "name": "Test Org Debug",
+        "slug": slug,
+        "plan_tier": "starter"
+    }
+    try:
+        response = requests.post(f"{BASE_URL}/super-admin/tenants", json=data, headers=headers)
+        print(f"Create Tenant Status: {response.status_code}")
+        print(f"Response: {response.text}")
+    except Exception as e:
+        print(f"Create Tenant Exception: {e}")
+
 if __name__ == "__main__":
     token = login()
     if token:
         check_me(token)
         check_stats(token)
+        create_tenant(token)
         check_tenants(token)

@@ -27,8 +27,11 @@ def read_all_tenants(
     """
     Retrieve all tenants (System Admin only).
     """
-    tenants = db.query(models.Tenant).offset(skip).limit(limit).all()
-    return tenants
+    try:
+        tenants = db.query(models.Tenant).offset(skip).limit(limit).all()
+        return tenants
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
 
 @router.post("/tenants", response_model=schemas.Tenant)
 def create_tenant(
