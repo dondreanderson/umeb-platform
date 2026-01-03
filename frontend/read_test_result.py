@@ -3,8 +3,19 @@ import sys
 import os
 
 try:
-    with open('prod_test_retry.json', 'r', encoding='utf-16-le') as f:
-        data = json.load(f)
+    content = None
+    for enc in ['utf-16', 'utf-16-le', 'utf-8']:
+        try:
+            with open('prod_test_success.json', 'r', encoding=enc) as f:
+                content = f.read()
+                data = json.loads(content)
+                break
+        except Exception:
+            continue
+            
+    if data is None:
+        print("Failed to read file with any encoding")
+        sys.exit(1)
     
     for suite in data.get('suites', []):
         for subsuite in suite.get('suites', []):

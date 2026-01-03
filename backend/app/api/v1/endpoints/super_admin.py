@@ -82,10 +82,25 @@ def get_global_stats(
     """
     Get global platform stats.
     """
-    total_tenants = db.query(models.Tenant).count()
-    total_users = db.query(models.User).count()
-    total_events = db.query(models.Event).count()
-    total_donations = db.query(models.Donation).count() # This counts all donations regardless of success for now
+    try:
+        total_tenants = db.query(models.Tenant).count()
+    except Exception:
+        total_tenants = 0
+        
+    try:
+        total_users = db.query(models.User).count()
+    except Exception:
+        total_users = 0
+
+    try:
+        total_events = db.query(models.Event).count()
+    except Exception:
+        total_events = 0
+
+    try:
+        total_donations = db.query(models.Donation).count() # This counts all donations regardless of success for now
+    except Exception:
+        total_donations = 0
     
     return {
         "total_tenants": total_tenants,

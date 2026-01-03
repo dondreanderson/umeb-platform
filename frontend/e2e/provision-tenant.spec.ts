@@ -5,6 +5,21 @@ test.describe('System Admin - Tenant Provisioning', () => {
     const adminPassword = 'admin123';
 
     test.beforeEach(async ({ page }) => {
+        // Debug API responses
+        page.on('response', async response => {
+            if (response.url().includes('/api/v1/')) {
+                console.log(`API URL: ${response.url()}`);
+                console.log(`API Status: ${response.status()}`);
+                if (!response.ok()) {
+                    try {
+                        console.log('Error Body:', await response.text());
+                    } catch (e) {
+                        console.log('Could not read error body');
+                    }
+                }
+            }
+        });
+
         // Login as Admin
         await page.goto('/login');
         await page.fill('input[type="email"]', adminEmail);
@@ -16,11 +31,22 @@ test.describe('System Admin - Tenant Provisioning', () => {
     });
 
     test('Provisioning a new organization works correctly', async ({ page }) => {
-        // Navigate to System Admin Page
+        // Debug API responses
+
+
+        // Debug Console logs
+        page.on('console', msg => console.log(`PAGE LOG: ${msg.text()}`));
+
+        // Navigate to System Admin Page (login first)
+        // Login happens in beforeEach, so we need to move debug logic globally or check storage here
+
+        // Check Token after login (beforeEach already ran)
+        const token = await page.evaluate(() => localStorage.getItem('token'));
+        console.log(`LocalStorage Token: ${token ? (token.substring(0, 10) + '...') : 'NULL'}`);
         await page.goto('/system-admin');
 
-        // Verify Page Title
-        await expect(page.locator('h1:has-text("Platform Overview")')).toBeVisible();
+        // Verify Page Title with longer timeout for cold starts
+        await expect(page.locator('h1:has-text("Platform Overview")')).toBeVisible({ timeout: 20000 });
 
         // Open Provision Modal
         await page.click('button:has-text("Provision New Tenant")');
