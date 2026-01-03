@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from app.models.tenant import PlanTier
 from datetime import datetime
 
@@ -8,6 +8,13 @@ class TenantBase(BaseModel):
     slug: Optional[str] = None
     plan_tier: Optional[PlanTier] = PlanTier.STARTER
     is_active: Optional[bool] = True
+
+    @field_validator('plan_tier', mode='before')
+    @classmethod
+    def normalize_plan_tier(cls, v):
+        if isinstance(v, str):
+            return v.lower()
+        return v
 
 class TenantCreate(TenantBase):
     name: str

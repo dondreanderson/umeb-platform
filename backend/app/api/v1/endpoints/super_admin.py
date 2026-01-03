@@ -29,17 +29,7 @@ def read_all_tenants(
     """
     try:
         tenants = db.query(models.Tenant).offset(skip).limit(limit).all()
-        # Manually validate to find the bad apple
-        results = []
-        for t in tenants:
-            try:
-                results.append(schemas.Tenant.model_validate(t))
-            except Exception as e:
-                # Log the specific error for this tenant
-                raise HTTPException(status_code=500, detail=f"Validation Error Tenant ID {t.id} (Name: {t.name}): {str(e)}")
-        return results
-    except HTTPException as he:
-        raise he
+        return tenants
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
 
