@@ -1,0 +1,149 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\dondr\\UMEB-Platform\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/dondr/UMEB-Platform/frontend/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/dondr/UMEB-Platform/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/dondr/UMEB-Platform/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 4,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://127.0.0.1:3500",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "provision-tenant.spec.ts",
+      "file": "provision-tenant.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "System Admin - Tenant Provisioning",
+          "file": "provision-tenant.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Provisioning a new organization works correctly",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 9044,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('text=\"Tenant created successfully.\"')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('text=\"Tenant created successfully.\"')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('text=\"Tenant created successfully.\"')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('text=\"Tenant created successfully.\"')\u001b[22m\n\n    at C:\\Users\\dondr\\UMEB-Platform\\frontend\\e2e\\provision-tenant.spec.ts:46:75",
+                        "location": {
+                          "file": "C:\\Users\\dondr\\UMEB-Platform\\frontend\\e2e\\provision-tenant.spec.ts",
+                          "column": 75,
+                          "line": 46
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 44 |\u001b[39m\n \u001b[90m 45 |\u001b[39m         \u001b[90m// Verify Toast Success\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 46 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'text=\"Tenant created successfully.\"'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 47 |\u001b[39m\n \u001b[90m 48 |\u001b[39m         \u001b[90m// Verify Tenant appears in table\u001b[39m\n \u001b[90m 49 |\u001b[39m         \u001b[90m// We might need to wait for reload/refresh\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\dondr\\UMEB-Platform\\frontend\\e2e\\provision-tenant.spec.ts",
+                            "column": 75,
+                            "line": 46
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('text=\"Tenant created successfully.\"')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('text=\"Tenant created successfully.\"')\u001b[22m\n\n\n  44 |\n  45 |         // Verify Toast Success\n> 46 |         await expect(page.locator('text=\"Tenant created successfully.\"')).toBeVisible();\n     |                                                                           ^\n  47 |\n  48 |         // Verify Tenant appears in table\n  49 |         // We might need to wait for reload/refresh\n    at C:\\Users\\dondr\\UMEB-Platform\\frontend\\e2e\\provision-tenant.spec.ts:46:75"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-03T07:25:28.023Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\dondr\\UMEB-Platform\\frontend\\test-results\\provision-tenant-System-Ad-81192-rganization-works-correctly-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\dondr\\UMEB-Platform\\frontend\\e2e\\provision-tenant.spec.ts",
+                        "column": 75,
+                        "line": 46
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3264014b9de96022be09-4ba5018b620dd0e41be2",
+              "file": "provision-tenant.spec.ts",
+              "line": 18,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-03T07:24:47.472Z",
+    "duration": 52478.183,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
