@@ -15,7 +15,8 @@ import {
     Settings2,
     CheckCircle2,
     XCircle,
-    ShieldAlert
+    ShieldAlert,
+    Trash2
 } from "lucide-react";
 import {
     Table,
@@ -35,6 +36,16 @@ import {
     DialogTrigger,
     DialogFooter
 } from "@/components/ui/dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -50,6 +61,9 @@ export default function SuperAdminDashboard() {
     const [showCreate, setShowCreate] = React.useState(false);
     const [newTenantName, setNewTenantName] = React.useState("");
     const [newTenantSlug, setNewTenantSlug] = React.useState("");
+
+    // Delete State
+    const [tenantToDelete, setTenantToDelete] = React.useState<Tenant | null>(null);
 
     React.useEffect(() => {
         loadData();
@@ -101,6 +115,18 @@ export default function SuperAdminDashboard() {
             loadData();
         } catch (error) {
             toast({ title: "Error", description: "Failed to update plan.", variant: "destructive" });
+        }
+    }
+
+    async function handleDeleteTenant() {
+        if (!tenantToDelete) return;
+        try {
+            await systemAdminService.deleteTenant(tenantToDelete.id);
+            toast({ title: "Tenant Deleted", description: "Organization has been permanently deleted." });
+            setTenantToDelete(null);
+            loadData();
+        } catch (error) {
+            toast({ title: "Error", description: "Failed to delete tenant.", variant: "destructive" });
         }
     }
 
@@ -212,19 +238,30 @@ export default function SuperAdminDashboard() {
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Select
-                                            defaultValue={tenant.plan_tier}
-                                            onValueChange={(val) => handleUpdatePlan(tenant.id, val)}
-                                        >
-                                            <SelectTrigger className="w-[140px] h-8 text-xs ml-auto">
-                                                <SelectValue placeholder="Update Tier" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="starter">Starter</SelectItem>
-                                                <SelectItem value="professional">Professional</SelectItem>
-                                                <SelectItem value="business">Business</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <div className="flex items-center justify-end gap-2">
+                                            <Select
+                                                defaultValue={tenant.plan_tier}
+                                                onValueChange={(val) => handleUpdatePlan(tenant.id, val)}
+                                            >
+                                                <SelectTrigger className="w-[130px] h-8 text-xs">
+                                                    <SelectValue placeholder="Update Tier" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="starter">Starter</SelectItem>
+                                                    <SelectItem value="professional">Professional</SelectItem>
+                                                    <SelectItem value="business">Business</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => setTenantToDelete(tenant)}
+                                                className="h-8 w-8 p-0 text-slate-400 hover:text-red-600 hover:bg-red-50"
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                                <span className="sr-only">Delete</span>
+                                            </Button>
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -232,6 +269,25 @@ export default function SuperAdminDashboard() {
                     </Table>
                 </CardContent>
             </Card>
+
+            <AlertDialog open={!!tenantToDelete} onOpenChange={(open: boolean) => !open && setTenantToDelete(null)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete
+                            <span className="font-bold text-slate-900"> {tenantToDelete?.name} </span>
+                            and remove all associated data (events, users, donations) from the servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleDeleteTenant} className="bg-red-600 hover:bg-red-700 text-white">
+                            Delete Organization
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }

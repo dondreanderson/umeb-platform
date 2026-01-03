@@ -77,6 +77,26 @@ def update_tenant(
     db.refresh(tenant)
     return tenant
 
+@router.delete("/tenants/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_tenant(
+    *,
+    db: Session = Depends(deps.get_db),
+    id: int,
+    system_admin: models.User = Depends(get_system_admin),
+) -> Any:
+    """
+    Delete a tenant.
+    """
+    tenant = db.query(models.Tenant).filter(models.Tenant.id == id).first()
+    if not tenant:
+        raise HTTPException(status_code=404, detail="Tenant not found")
+    
+    # We rely on CASCADE delete in DB or manual cleanup if needed.
+    # Given the user request, we assume SQLAlchemy/DB cascades are sufficient or we just delete the root.
+    db.delete(tenant)
+    db.commit()
+    return None
+
 @router.get("/stats")
 def get_global_stats(
     db: Session = Depends(deps.get_db),

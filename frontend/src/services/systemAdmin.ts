@@ -39,6 +39,12 @@ export const systemAdminService = {
         });
     },
 
+    async deleteTenant(id: number): Promise<void> {
+        return fetchJson<void>(`/api/v1/super-admin/tenants/${id}`, {
+            method: "DELETE",
+        });
+    },
+
     async getStats(): Promise<GlobalStats> {
         return fetchJson<GlobalStats>("/api/v1/super-admin/stats");
     }
